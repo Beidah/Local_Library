@@ -6,8 +6,7 @@ function sortAccountsByLastName(accounts) {
   return accounts.sort((a, b) => a.name.last.toLowerCase() > b.name.last.toLowerCase() ? 1 : -1);
 }
 
-function numberOfBorrows(account, books) {
-  let id = account.id;
+function numberOfBorrows({id}, books) {
   // Double accumulate!
   let borrows = books.reduce((acc, book) => {
     return acc + book.borrows.reduce((acc, borrow) => {
@@ -21,7 +20,6 @@ function numberOfBorrows(account, books) {
 }
 
 function getBooksPossessedByAccount(account, books, authors) {
-  console.log("Account id: " + account.id);
   const authorIds = authors.map(author => author.id);
   let booksByAuthors = books.filter(book => authorIds.includes(book.authorId)).map(book => {
     book.author = findAccountById(authors, book.authorId);
